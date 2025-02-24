@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/config/routes/app_route_name.dart';
+import 'package:fruits_hub/config/routes/generate_routes.dart';
 
-//Start Point  App 
+//Start Point  App
 
 class FruitApp extends StatelessWidget {
   const FruitApp({super.key});
@@ -10,15 +12,9 @@ class FruitApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fruit App',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: _fruitAppBody(),
-      ),
+      onGenerateRoute: onGenerateRoute,
+      initialRoute: AppRouteName.splashView,
     );
-  }
-  //body 
-  Widget _fruitAppBody() {
-    return Center(
-      child: Text("Fruit"),
-    );
+    //body
   }
 }
