@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/config/routes/app_route_name.dart';
-import 'package:fruits_hub/core/utils/app_assets_name.dart';
+import 'package:fruits_hub/core/services/shared_prefs.dart';
+import 'package:fruits_hub/core/utils/app_assets.dart';
+import 'package:fruits_hub/core/utils/pref_keys.dart';
 
+//TODO Change This Page And Use flutter_native_splash
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -27,14 +30,18 @@ class _SplashViewState extends State<SplashView> {
   Widget _splashViewBody() {
     return Stack(
       children: [
-        Positioned(child: SvgPicture.asset(AppImageName.splashPlant)),
+        Positioned(
+            left: 0,
+            child: SvgPicture.asset(
+              Assets.splashPlant,
+            )),
         Center(
-          child: SvgPicture.asset(AppImageName.splashLogo),
+          child: SvgPicture.asset(Assets.splashLogo),
         ),
         Positioned(
           bottom: 1,
           child: SvgPicture.asset(
-            AppImageName.splashCircles,
+            Assets.splashCircles,
             fit: BoxFit.fill,
           ),
         ),
@@ -45,7 +52,11 @@ class _SplashViewState extends State<SplashView> {
   void _executeNavigation() {
     // Simulate navigation after 3 seconds
     Future.delayed(Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacementNamed(AppRouteName.onBoarding);
+      if (Prefs.getBool(key: PrefKeys.isOnBoardingSeen)) {
+        Navigator.of(context).pushReplacementNamed(AppRouteName.login);
+      } else {
+        Navigator.of(context).pushReplacementNamed(AppRouteName.onBoarding);
+      }
     });
   }
 }
