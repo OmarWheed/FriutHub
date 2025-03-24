@@ -31,7 +31,7 @@ flutter:
     - assets/images/
     - assets/translations/
   fonts:
-    - family: 'Cairo'
+    - family: "Cairo"
       fonts:
         - asset: assets/fonts/cario/Cairo-Regular.ttf
         - asset: assets/fonts/cario/Cairo-Medium.ttf

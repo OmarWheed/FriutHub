@@ -4,69 +4,97 @@ abstract class TextStyles {
   static const TextStyle bold13 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 13,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
   static const TextStyle bold23 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 23,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle semiBold13 = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 13,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle regular13 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 13,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle bold16 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 16,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle bold19 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 19,
+    fontFamily: "Cairo",
+    color: Colors.black,
   );
 
   static const TextStyle semiBold16 = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 16,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle bold28 = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 28,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle regular22 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 22,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle semiBold11 = TextStyle(
     fontWeight: FontWeight.w600,
     fontSize: 11,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle medium15 = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 15,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle regular26 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 26,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle regular16 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 16,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 
   static const TextStyle regular11 = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 11,
+    color: Colors.black,
+    fontFamily: "Cairo",
   );
 }
