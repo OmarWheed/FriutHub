@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/services/shared_prefs.dart';
 import 'package:fruits_hub/fruit_app.dart';
 
+//TODO : DO INIT FUNCTIONS TO ALL INITIALIZATION FUNCTION
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
