@@ -41,5 +41,13 @@ ThemeData getLightTheme() {
         borderSide: BorderSide(color: AppColors.textFormFiledColor),
       ),
     ),
+    checkboxTheme: CheckboxThemeData(
+      side: BorderSide(
+        color: AppColors.textColorInFormFiled,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(3),
+      ),
+    ),
   );
 }
