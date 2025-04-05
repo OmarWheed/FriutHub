@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
-import 'package:fruits_hub/core/utils/app_text_Styles.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 class AgreeOfTermAndCondistion extends StatefulWidget {
-  const AgreeOfTermAndCondistion({super.key});
+  const AgreeOfTermAndCondistion({super.key, required this.onChange});
+  final ValueChanged<bool> onChange;
 
   @override
   State<AgreeOfTermAndCondistion> createState() =>
@@ -11,18 +12,19 @@ class AgreeOfTermAndCondistion extends StatefulWidget {
 }
 
 class _AgreeOfTermAndCondistionState extends State<AgreeOfTermAndCondistion> {
-  bool cliced = false;
+  bool isTermAgree = false;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Transform.translate(
-          offset: Offset(15, -11),
+          offset: const Offset(15, -11),
           child: Checkbox(
-            value: cliced,
+            value: isTermAgree,
             onChanged: (val) {
               setState(() {
-                cliced = !cliced;
+                isTermAgree = val!;
+                widget.onChange(val);
               });
             },
           ),

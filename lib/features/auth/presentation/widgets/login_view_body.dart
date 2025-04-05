@@ -4,8 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/config/routes/app_route_name.dart';
 import 'package:fruits_hub/core/utils/app_assets.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
-import 'package:fruits_hub/core/utils/app_text_Styles.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub/core/widgets/password_field.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -15,20 +16,20 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  late TextEditingController emailController;
+  late TextEditingController _emailController;
 
-  late TextEditingController passwordController;
+  late TextEditingController _passwordController;
   @override
   void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -41,19 +42,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           spacing: 16,
           children: [
             CustomTextFormField(
-              controller: emailController,
+              controller: _emailController,
               hintText: "البريد الإلكتروني",
               textInputType: TextInputType.emailAddress,
             ),
-            CustomTextFormField(
-              obscureText: true,
-              controller: passwordController,
-              textInputType: TextInputType.visiblePassword,
-              hintText: "كلمة المرور",
-              icon: Icon(
-                Icons.visibility,
-                color: AppColors.textColorInFormFiled,
-              ),
+            PasswordField(
+              controller: _passwordController,
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -64,10 +58,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ),
               ),
             ),
-            SizedBox(height: 14),
+            const SizedBox(height: 14),
             ElevatedButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "تسجيل دخول",
                 )),
             Text.rich(TextSpan(children: [
@@ -89,7 +83,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   style: TextStyles.semiBold16
                       .copyWith(color: AppColors.buttonColor)),
             ])),
-            SizedBox(height: 14),
+            const SizedBox(height: 14),
             _buildDividerLine(),
             _buildButtonWithIcon(
                 title: "تسجيل بواسطة جوجل", logo: Assets.googleLogo),
@@ -106,7 +100,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   Widget _buildButtonWithIcon({required String title, required String logo}) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 17),
+      padding: const EdgeInsets.symmetric(vertical: 17),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.borderColor),
@@ -114,7 +108,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           SvgPicture.asset(
             logo,
           ),

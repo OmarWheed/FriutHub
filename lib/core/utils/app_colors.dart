@@ -10,4 +10,5 @@ abstract class AppColors {
   static const Color textColorInFormFiled = Color(0xFF949D9E);
   static const Color buttonColor = Color(0xFF1B5E37);
   static const Color borderColor = Color(0xFFDDDFDF);
+  static const Color bordererrorColor = Colors.red;
 }
