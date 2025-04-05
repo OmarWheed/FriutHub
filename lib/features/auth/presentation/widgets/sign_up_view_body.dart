@@ -1,9 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/config/routes/app_route_name.dart';
+import 'package:fruits_hub/core/helper/build_error_bar.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
-import 'package:fruits_hub/core/utils/app_text_Styles.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub/core/widgets/password_field.dart';
+import 'package:fruits_hub/features/auth/presentation/cubits/cubit/signup_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/widgets/agree_terms.dart';
 
 class SignUpViewBody extends StatefulWidget {
@@ -17,12 +21,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
-
+  late final GlobalKey<FormState> _globalKey;
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  bool _isAgreed = false;
   @override
   void initState() {
+    _globalKey = GlobalKey<FormState>();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+
     super.initState();
   }
 
@@ -37,29 +45,57 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        spacing: 16,
-        children: [
-          SizedBox(
-            height: 24,
+      child: Form(
+        key: _globalKey,
+        child: AutofillGroup(
+          child: Column(
+            spacing: 16,
+            children: [
+              const SizedBox(
+                height: 24,
+              ),
+              CustomTextFormField(
+                  controller: _nameController, hintText: "الاسم كامل"),
+              CustomTextFormField(
+                  autoFillHints: AutofillHints.email,
+                  controller: _emailController,
+                  hintText: "البريد الإلكتروني"),
+              PasswordField(
+                controller: _passwordController,
+              ),
+              AgreeOfTermAndCondistion(
+                onChange: (value) {
+                  _isAgreed = value;
+                },
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    if (_globalKey.currentState!.validate()) {
+                      _globalKey.currentState!.save();
+                      if (_isAgreed) {
+                        context
+                            .read<SignupCubit>()
+                            .createUserWithEmailAndPassword(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                name: _nameController.text);
+                      } else {
+                        buildErrorBar(
+                          context,
+                          "يجب الموافقة على الشروط والأحكام",
+                        );
+                      }
+                    } else {
+                      setState(() {
+                        _autovalidateMode = AutovalidateMode.always;
+                      });
+                    }
+                  },
+                  child: const Text("إنشاء حساب جديد")),
+              _buildHadEmail()
+            ],
           ),
-          CustomTextFormField(
-              controller: _nameController, hintText: "الاسم كامل"),
-          CustomTextFormField(
-              controller: _emailController, hintText: "البريد الإلكتروني"),
-          CustomTextFormField(
-            controller: _passwordController,
-            hintText: "كلمة المرور",
-            obscureText: true,
-            icon: Icon(
-              Icons.visibility,
-              color: AppColors.textColorInFormFiled,
-            ),
-          ),
-          AgreeOfTermAndCondistion(),
-          ElevatedButton(onPressed: () {}, child: Text("إنشاء حساب جديد")),
-          _buildHadEmail()
-        ],
+        ),
       ),
     );
   }

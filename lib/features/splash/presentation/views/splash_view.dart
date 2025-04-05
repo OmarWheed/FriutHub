@@ -51,7 +51,7 @@ class _SplashViewState extends State<SplashView> {
 
   void _executeNavigation() {
     // Simulate navigation after 3 seconds
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       if (Prefs.getBool(key: PrefKeys.isOnBoardingSeen)) {
         Navigator.of(context).pushReplacementNamed(AppRouteName.login);
       } else {

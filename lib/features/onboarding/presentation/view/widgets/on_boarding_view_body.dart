@@ -70,7 +70,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                 Prefs.setBool(PrefKeys.isOnBoardingSeen, true);
                 Navigator.of(context).pushReplacementNamed(AppRouteName.login);
               },
-              child: Text('ابدأ الان'),
+              child: const Text('ابدأ الان'),
             ),
           ),
         ),
