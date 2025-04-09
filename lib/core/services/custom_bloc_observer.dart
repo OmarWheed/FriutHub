@@ -11,6 +11,14 @@ class CustomBlocObserver extends BlocObserver {
   }
 
   @override
+  void onClose(BlocBase bloc) {
+    PrintMessage(
+      '${bloc.runtimeType} onClose',
+    ).g;
+    super.onClose(bloc);
+  }
+
+  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     PrintMessage(

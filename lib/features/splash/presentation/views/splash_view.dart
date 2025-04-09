@@ -5,7 +5,7 @@ import 'package:fruits_hub/core/services/shared_prefs.dart';
 import 'package:fruits_hub/core/utils/app_assets.dart';
 import 'package:fruits_hub/core/utils/pref_keys.dart';
 
-//TODO Change This Page And Use flutter_native_splash
+//TODO: Change This Page And Use flutter_native_splash
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 

@@ -1,26 +1,32 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/config/routes/app_route_name.dart';
 import 'package:fruits_hub/core/utils/app_assets.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
+import 'package:fruits_hub/features/auth/presentation/cubits/sign_in_cubit/signin_cubit.dart';
+import 'package:fruits_hub/features/auth/presentation/widgets/custom_button_with_icon.dart';
 
-class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+class SignInViewBody extends StatefulWidget {
+  const SignInViewBody({super.key});
 
   @override
-  State<LoginViewBody> createState() => _LoginViewBodyState();
+  State<SignInViewBody> createState() => _SignInViewBodyState();
 }
 
-class _LoginViewBodyState extends State<LoginViewBody> {
+class _SignInViewBodyState extends State<SignInViewBody> {
   late TextEditingController _emailController;
-
+  late final GlobalKey<FormState> _globalKey;
   late TextEditingController _passwordController;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   @override
   void initState() {
+    _globalKey = GlobalKey();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     super.initState();
@@ -36,16 +42,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Form(
+        autovalidateMode: autovalidateMode,
+        key: _globalKey,
         child: Column(
           spacing: 16,
           children: [
             CustomTextFormField(
-              controller: _emailController,
-              hintText: "البريد الإلكتروني",
-              textInputType: TextInputType.emailAddress,
-            ),
+                autoFillHints: AutofillHints.email,
+                controller: _emailController,
+                hintText: "البريد الإلكتروني"),
             PasswordField(
               controller: _passwordController,
             ),
@@ -60,7 +66,19 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
             const SizedBox(height: 14),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  autovalidateMode = AutovalidateMode.onUserInteraction;
+                  if (_globalKey.currentState!.validate()) {
+                    _globalKey.currentState!.save();
+                    context.read<SignInCubit>().signIn(
+                        email: _emailController.text,
+                        password: _passwordController.text);
+                  } else {
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
+                  }
+                },
                 child: const Text(
                   "تسجيل دخول",
                 )),
@@ -85,40 +103,36 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ])),
             const SizedBox(height: 14),
             _buildDividerLine(),
-            _buildButtonWithIcon(
-                title: "تسجيل بواسطة جوجل", logo: Assets.googleLogo),
-            _buildButtonWithIcon(
-                title: "تسجيل بواسطة أبل", logo: Assets.appleLogo),
-            _buildButtonWithIcon(
-                title: "تسجيل بواسطة فيسبوك", logo: Assets.facebookLogo)
+            const SizedBox(height: 14),
+            CustomButtonWithIcon(
+              title: "تسجيل بواسطة جوجل",
+              logo: Assets.googleLogo,
+              onTap: () {
+                context.read<SignInCubit>().signInWithGoogle();
+              },
+            ),
+            //TODO: This Feature not work Yet because I don't have Mac
+            Visibility(
+              maintainAnimation: false,
+              maintainState: false,
+              maintainSize: false,
+              maintainSemantics: false,
+              visible: Platform.isIOS ? true : false,
+              child: CustomButtonWithIcon(
+                title: "تسجيل بواسطة أبل",
+                logo: Assets.appleLogo,
+                onTap: () {},
+              ),
+            ),
+            CustomButtonWithIcon(
+              title: "تسجيل بواسطة فيسبوك",
+              logo: Assets.facebookLogo,
+              onTap: () {
+                context.read<SignInCubit>().signInWithFacebook();
+              },
+            )
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildButtonWithIcon({required String title, required String logo}) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 17),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.borderColor),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(width: 15),
-          SvgPicture.asset(
-            logo,
-          ),
-          Expanded(child: Container()),
-          Text(
-            title,
-            style: TextStyles.semiBold16,
-          ),
-          Expanded(child: Container()),
-        ],
       ),
     );
   }
