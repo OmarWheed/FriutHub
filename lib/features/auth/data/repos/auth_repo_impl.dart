@@ -24,8 +24,52 @@ class AuthRepoImpl extends AuthRepo {
       return Left(ServerFailure(e.message));
     } catch (e) {
       PrintMessage("catch Exception in AuthRepoImpl -->$e").r;
-      return Left(
-          ServerFailure("Couldn't connect to Server please try again later"));
+      return Left(ServerFailure(
+          "لم نتمكن من الاتصال بالخادم، يرجى المحاولة مرة أخرى لاحقًا"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      var user = await firebaseAuthService.signInWithEmailAndPassword(
+          email: email, password: password);
+      return Right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(e.message));
+    } catch (e) {
+      PrintMessage("catch Exception in AuthRepoImpl -->$e").r;
+      return Left(ServerFailure(
+          "لم نتمكن من الاتصال بالخادم، يرجى المحاولة مرة أخرى لاحقًا"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    try {
+      var user = await firebaseAuthService.signInWithGoogle();
+      return right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      PrintMessage("catch Exception in AuthRepoImpl -->$e").r;
+      return left(ServerFailure(
+          "لم نتمكن من الاتصال بالخادم، يرجى المحاولة مرة أخرى لاحقًا"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+    try {
+      var user = await firebaseAuthService.signInWithFackBook();
+      return right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      PrintMessage("catch Exception in AuthRepoImpl -->$e").r;
+      return left(ServerFailure(
+          "لم نتمكن من الاتصال بالخادم، يرجى المحاولة مرة أخرى لاحقًا"));
     }
   }
 }

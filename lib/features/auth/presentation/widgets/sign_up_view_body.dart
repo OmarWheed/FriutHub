@@ -7,7 +7,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 import 'package:fruits_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruits_hub/core/widgets/password_field.dart';
-import 'package:fruits_hub/features/auth/presentation/cubits/cubit/signup_cubit.dart';
+import 'package:fruits_hub/features/auth/presentation/cubits/sign_up_cubit/signup_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/widgets/agree_terms.dart';
 
 class SignUpViewBody extends StatefulWidget {
@@ -22,7 +22,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final GlobalKey<FormState> _globalKey;
-  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   bool _isAgreed = false;
   @override
   void initState() {
@@ -46,55 +46,55 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
+        autovalidateMode: autovalidateMode,
         key: _globalKey,
-        child: AutofillGroup(
-          child: Column(
-            spacing: 16,
-            children: [
-              const SizedBox(
-                height: 24,
-              ),
-              CustomTextFormField(
-                  controller: _nameController, hintText: "الاسم كامل"),
-              CustomTextFormField(
-                  autoFillHints: AutofillHints.email,
-                  controller: _emailController,
-                  hintText: "البريد الإلكتروني"),
-              PasswordField(
-                controller: _passwordController,
-              ),
-              AgreeOfTermAndCondistion(
-                onChange: (value) {
-                  _isAgreed = value;
-                },
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_globalKey.currentState!.validate()) {
-                      _globalKey.currentState!.save();
-                      if (_isAgreed) {
-                        context
-                            .read<SignupCubit>()
-                            .createUserWithEmailAndPassword(
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                name: _nameController.text);
-                      } else {
-                        buildErrorBar(
-                          context,
-                          "يجب الموافقة على الشروط والأحكام",
-                        );
-                      }
+        child: Column(
+          spacing: 16,
+          children: [
+            const SizedBox(
+              height: 24,
+            ),
+            CustomTextFormField(
+                controller: _nameController, hintText: "الاسم كامل"),
+            CustomTextFormField(
+                autoFillHints: AutofillHints.email,
+                controller: _emailController,
+                hintText: "البريد الإلكتروني"),
+            PasswordField(
+              controller: _passwordController,
+            ),
+            AgreeOfTermAndCondistion(
+              onChange: (value) {
+                _isAgreed = value;
+              },
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  autovalidateMode = AutovalidateMode.onUserInteraction;
+                  if (_globalKey.currentState!.validate()) {
+                    _globalKey.currentState!.save();
+                    if (_isAgreed) {
+                      context
+                          .read<SignupCubit>()
+                          .createUserWithEmailAndPassword(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              name: _nameController.text);
                     } else {
-                      setState(() {
-                        _autovalidateMode = AutovalidateMode.always;
-                      });
+                      buildErrorBar(
+                        context,
+                        "يجب الموافقة على الشروط والأحكام",
+                      );
                     }
-                  },
-                  child: const Text("إنشاء حساب جديد")),
-              _buildHadEmail()
-            ],
-          ),
+                  } else {
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
+                  }
+                },
+                child: const Text("إنشاء حساب جديد")),
+            _buildHadEmail()
+          ],
         ),
       ),
     );
