@@ -15,6 +15,9 @@ class SignUpView extends StatelessWidget {
       appBar: buildAppBar(context, title: "حساب جديد"),
       body: BlocConsumer<SignupCubit, SignupState>(
         listener: (context, state) {
+          if (state is SignupSuccess) {
+            Navigator.pop(context);
+          }
           if (state is SignupFailure) {
             buildErrorBar(context, state.errorMessage);
           }

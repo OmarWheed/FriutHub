@@ -114,4 +114,8 @@ class FirebaseAuthService {
       throw CustomException("حدث خطأ. يرجى المحاولة مرة أخرى لاحقًا.");
     }
   }
+
+  Future<void> deleteUser() async {
+    await FirebaseAuth.instance.currentUser?.delete();
+  }
 }

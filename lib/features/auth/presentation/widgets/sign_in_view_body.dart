@@ -94,8 +94,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(AppRouteName.signUp);
+                      Navigator.of(context).pushNamed(AppRouteName.signUp);
                     },
                   text: " قم بأنشاء حساب",
                   style: TextStyles.semiBold16

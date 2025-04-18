@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_hub/config/routes/app_route_name.dart';
 import 'package:fruits_hub/core/helper/build_error_bar.dart';
 import 'package:fruits_hub/core/widgets/custom_app_bar.dart';
 import 'package:fruits_hub/features/auth/presentation/cubits/sign_in_cubit/signin_cubit.dart';
@@ -15,6 +16,9 @@ class SignInView extends StatelessWidget {
       appBar: buildAppBar(context, title: "تسجيل دخول"),
       body: BlocConsumer<SignInCubit, SignInState>(
         listener: (context, state) {
+          if (state is SignInSuccess) {
+            Navigator.of(context).pushReplacementNamed(AppRouteName.home);
+          }
           if (state is SignInFailure) {
             buildErrorBar(context, state.errorMessage);
           }

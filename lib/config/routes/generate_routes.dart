@@ -7,6 +7,7 @@ import 'package:fruits_hub/features/auth/presentation/cubits/sign_in_cubit/signi
 import 'package:fruits_hub/features/auth/presentation/cubits/sign_up_cubit/signup_cubit.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import 'package:fruits_hub/features/onboarding/presentation/view/on_boarding_view.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 
@@ -29,6 +30,8 @@ Route? onGenerateRoute(RouteSettings routes) {
           child: const SignUpView(),
         ),
       );
+    case AppRouteName.home:
+      return MaterialPageRoute(builder: (context) => const HomeView());
     default:
       return MaterialPageRoute(builder: (context) => _pageNotFoundBody());
   }

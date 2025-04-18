@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add your string resources here -->
+    
+<string name="facebook_app_id">1713929876218723</string>
+<string name="fb_login_protocol_scheme">fb1234</string>
+<string name="facebook_client_token">fc8f607d0a83cc8719bb5799ebe97fee</string>
+<string name="app_name">Fruits Hub</string>
+
+
+</resources>
