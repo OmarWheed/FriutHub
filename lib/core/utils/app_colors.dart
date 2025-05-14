@@ -11,4 +11,6 @@ abstract class AppColors {
   static const Color buttonColor = Color(0xFF1B5E37);
   static const Color borderColor = Color(0xFFDDDFDF);
   static const Color bordererrorColor = Colors.red;
+  static const Color notificationColor = Color(0xFFE9F3E8);
+  static const Color outLineBorderColor = Color(0xFFE6E9E9);
 }
