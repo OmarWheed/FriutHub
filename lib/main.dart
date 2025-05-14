@@ -9,6 +9,8 @@ import 'package:fruits_hub/firebase_options.dart';
 import 'package:fruits_hub/fruit_app.dart';
 
 //TODO : DO INIT FUNCTIONS TO ALL INITIALIZATION FUNCTION
+//TODO : DO WHEN CLICK OUT OF TEXT FIELD DISSMISS KEYBOARD
+//TODO : change name of colors to smart name 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
