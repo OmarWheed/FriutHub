@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/config/routes/app_route_name.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 class BestSellerHeader extends StatelessWidget {
   const BestSellerHeader({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +16,16 @@ class BestSellerHeader extends StatelessWidget {
           "الأكثر مبيعًا",
           style: TextStyles.bold16,
         ),
-        Text(
-          "المزيد",
-          style: TextStyles.regular13
-              .copyWith(color: AppColors.textColorInFormFiled),
-        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, AppRouteName.bestSelling);
+          },
+          child: Text(
+            "المزيد",
+            style: TextStyles.regular13
+                .copyWith(color: AppColors.textColorInFormFiled),
+          ),
+        )
       ],
     );
   }

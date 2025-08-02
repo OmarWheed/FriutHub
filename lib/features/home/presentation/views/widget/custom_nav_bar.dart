@@ -3,7 +3,8 @@ import 'package:fruits_hub/features/home/domin/entity/bottom_nav_entity.dart';
 import 'package:fruits_hub/features/home/presentation/views/widget/bottom_nav_bar_items.dart';
 
 class CustomNavBar extends StatefulWidget {
-  const CustomNavBar({super.key});
+  const CustomNavBar({super.key, required this.changeSelectedIndex});
+  final ValueChanged<int> changeSelectedIndex;
 
   @override
   State<CustomNavBar> createState() => _CustomNavBarState();
@@ -39,6 +40,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
               onTap: () {
                 setState(() {
                   selectIndex = index;
+                  widget.changeSelectedIndex(selectIndex);
                 });
               },
               child: BottomNavItem(

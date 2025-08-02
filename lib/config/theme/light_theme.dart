@@ -14,6 +14,7 @@ ThemeData getLightTheme() {
     ///////AppBar
     appBarTheme: const AppBarTheme(
       centerTitle: true,
+      elevation: 0,
       titleTextStyle: TextStyles.bold19,
       backgroundColor: Colors.transparent,
     ),

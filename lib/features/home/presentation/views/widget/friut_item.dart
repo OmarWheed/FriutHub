@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/core/utils/app_assets.dart';
+import 'package:fruits_hub/core/entitys/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
 class FruitItem extends StatelessWidget {
-  const FruitItem({super.key});
-
+  const FruitItem({super.key, required this.productEntity});
+  final ProductEntity productEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
-    
       decoration: const BoxDecoration(color: Color(0xffF3F5F7)),
       child: Stack(
         children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline_sharp),
-            ),
-          ),
           Positioned.fill(
             child: Column(
               children: [
                 const SizedBox(
                   height: 20,
                 ),
-                Image.asset(Assets.watermelon),
+                Flexible(
+                    child: Image.network(
+                  productEntity.imageUrl,
+                  height: 200,
+                )),
                 const SizedBox(
                   height: 24,
                 ),
@@ -41,23 +36,31 @@ class FruitItem extends StatelessWidget {
                             color: AppColors.backgroundColor,
                           ),
                         )),
-                    title: const Text(
-                      "بطيخ",
+                    title: Text(
+                      productEntity.productName,
                       style: TextStyles.semiBold13,
                     ),
                     subtitle: Text.rich(TextSpan(children: [
                       TextSpan(
-                          text: "20جنية/ ",
+                          text: productEntity.productPrice.toString(),
                           style: TextStyles.bold13
                               .copyWith(color: AppColors.secondaryColor)),
                       TextSpan(
-                          text: "الكيلو",
+                          text: productEntity.unitAmount.toString(),
                           style: TextStyles.bold13
                               .copyWith(color: AppColors.lightSecondaryColor)),
                     ])))
               ],
             ),
-          )
+          ),
+          Positioned(
+            top: 0,
+            right: 0,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_outline_sharp),
+            ),
+          ),
         ],
       ),
     );
