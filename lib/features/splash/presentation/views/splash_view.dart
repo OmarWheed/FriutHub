@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruits_hub/config/routes/app_route_name.dart';
+import 'package:fruits_hub/core/services/firebase_auth_service.dart';
 import 'package:fruits_hub/core/services/shared_prefs.dart';
 import 'package:fruits_hub/core/utils/app_assets.dart';
 import 'package:fruits_hub/core/utils/pref_keys.dart';
@@ -53,7 +54,12 @@ class _SplashViewState extends State<SplashView> {
     // Simulate navigation after 3 seconds
     Future.delayed(const Duration(seconds: 5), () {
       if (Prefs.getBool(key: PrefKeys.isOnBoardingSeen)) {
-        Navigator.of(context).pushReplacementNamed(AppRouteName.login);
+        var loggedIn = FirebaseAuthService.isLoggedIn();
+        if (loggedIn) {
+          Navigator.of(context).pushReplacementNamed(AppRouteName.home);
+        } else {
+          Navigator.of(context).pushReplacementNamed(AppRouteName.login);
+        }
       } else {
         Navigator.of(context).pushReplacementNamed(AppRouteName.onBoarding);
       }

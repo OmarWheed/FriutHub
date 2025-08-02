@@ -73,6 +73,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     context.read<SignInCubit>().signIn(
                         email: _emailController.text,
                         password: _passwordController.text);
+                        
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;

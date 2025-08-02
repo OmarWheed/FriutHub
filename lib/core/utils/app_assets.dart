@@ -32,4 +32,7 @@ class Assets {
       "assets/images/in_active_shopping-cart.svg";
   static const String activeUser = "assets/images/active_user.svg";
   static const String inActiveUser = "assets/images/in_active_user.svg";
+
+
+  static const String filter2 = "assets/images/filter2.svg";
 }
