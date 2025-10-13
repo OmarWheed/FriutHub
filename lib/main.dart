@@ -12,6 +12,7 @@ import 'package:fruits_hub/fruit_app.dart';
 //TODO : DO WHEN CLICK OUT OF TEXT FIELD DISSMISS KEYBOARD
 //TODO : change name of colors to smart name 
 //TODO : enhance padding :do constent file and put padding horri and vert
+//TODO : use networkcache package to cache network images
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

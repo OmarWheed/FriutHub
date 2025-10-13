@@ -22,7 +22,7 @@ abstract class TextStyles {
   );
 
   static const TextStyle regular13 = TextStyle(
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w400,
     fontSize: 13,
     color: Colors.black,
     fontFamily: "Cairo",
