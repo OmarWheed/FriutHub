@@ -35,4 +35,9 @@ class Assets {
 
 
   static const String filter2 = "assets/images/filter2.svg";
+  static const String trash = "assets/images/trash.svg";
+  static const String organic = "assets/images/organic.svg";
+  static const String calander = "assets/images/calendar.svg";
+  static const String calories = "assets/images/calories.svg";
+  static const String star = "assets/images/starsvg.svg";
 }

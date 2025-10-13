@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/core/entitys/product_entity.dart';
 import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/utils/app_text_styles.dart';
+import 'package:fruits_hub/features/home/cubit/cart_cubit.dart';
 
 class FruitItem extends StatelessWidget {
   const FruitItem({super.key, required this.productEntity});
@@ -18,11 +20,15 @@ class FruitItem extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Flexible(
-                    child: Image.network(
-                  productEntity.imageUrl,
-                  height: 200,
-                )),
+                // Flexible(
+                //     child: Image.network(
+                //   productEntity.imageUrl??"https://via.placeholder.com/150",
+                //   height: 200,
+                // )),
+                Placeholder(
+                  fallbackHeight: 100,
+                
+                ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -30,7 +36,9 @@ class FruitItem extends StatelessWidget {
                     trailing: CircleAvatar(
                         backgroundColor: AppColors.buttonColor,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.read<CartCubit>().addProduct(productEntity);
+                          },
                           icon: const Icon(
                             Icons.add,
                             color: AppColors.backgroundColor,

@@ -4,6 +4,6 @@ final class AppRouteName {
   static const String onBoarding = "ON_BOARDING";
   static const String login = "LOGIN";
   static const String signUp = "SIGNUP";
-  static const String home = "HOME";
+  static const String appSection = "AppSection";
   static const String bestSelling = "BESTSELLING";
 }

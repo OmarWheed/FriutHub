@@ -10,7 +10,9 @@ import 'package:fruits_hub/features/auth/presentation/cubits/sign_up_cubit/signu
 import 'package:fruits_hub/features/auth/presentation/views/sign_in_view.dart';
 import 'package:fruits_hub/features/auth/presentation/views/sign_up_view.dart';
 import 'package:fruits_hub/features/best_selling_fruits/presentation/views/best_selling_view.dart';
-import 'package:fruits_hub/features/home/presentation/views/main_view.dart';
+import 'package:fruits_hub/features/home/cubit/cart_cubit.dart';
+import 'package:fruits_hub/features/home/presentation/views/widget/details_view.dart';
+import 'package:fruits_hub/features/home/presentation/views/app_section.dart';
 import 'package:fruits_hub/features/home/presentation/views/product_view.dart';
 import 'package:fruits_hub/features/onboarding/presentation/view/on_boarding_view.dart';
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
@@ -34,20 +36,26 @@ Route? onGenerateRoute(RouteSettings routes) {
           child: const SignUpView(),
         ),
       );
-    case AppRouteName.home:
+    case AppRouteName.  appSection:
       return MaterialPageRoute(
-          builder: (context) => BlocProvider(
+        builder: (context) => MultiBlocProvider(providers: [
+          BlocProvider(
               create: (context) =>
-                  ProductCubit(productRepo: getIt<ProductRepo>()),
-              child: const MainView()),);
+                  ProductCubit(productRepo: getIt<ProductRepo>())),
+          BlocProvider(create: (context) => CartCubit()),
+        ], child: const AppSection()),
+      );
     case ProductView.routeName:
       return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-              create: (context) =>
-                  ProductCubit(productRepo: getIt<ProductRepo>()),
-              child: const ProductView()),);
+        builder: (context) => BlocProvider(
+            create: (context) =>
+                ProductCubit(productRepo: getIt<ProductRepo>()),
+            child: const ProductView()),
+      );
     case AppRouteName.bestSelling:
       return MaterialPageRoute(builder: (context) => const BestSellingView());
+    case DetailsScreen.routeName:
+      return MaterialPageRoute(builder: (context) => const DetailsScreen());
     default:
       return MaterialPageRoute(builder: (context) => _pageNotFoundBody());
   }
